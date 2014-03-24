@@ -1,0 +1,34 @@
+{% extends "optic.html" %}
+
+{% block left_nav %}
+<h3>Search</h3>
+<form class="form-horizontal" method="post" id="search">
+    <input class="span7" id="query" type="text" name="query" placeholder="Enter keywords">
+    <input class="btn" type="submit" value="Search">
+</form>
+{% endblock %}
+
+{% block center %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Table</th>
+        <th>Heading</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Blah</td>
+        <td>Test</td>
+    </tr>
+    <tr>
+        <td>Hello</td>
+        <td>World</td>
+    </tr>
+    </tbody>
+</table>
+{% endblock %}
+
+{% block right_nav %}
+<p>Right Column</p>
+{% endblock %}

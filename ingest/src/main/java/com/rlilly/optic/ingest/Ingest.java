@@ -48,11 +48,17 @@ private static Logger _logger = Logger.getLogger(Ingest.class);
 	private void initThreads() {
 		_logger.info("Starting Threads");
 		
-		this._executorService = Executors.newFixedThreadPool(2);
+		this._executorService = Executors.newFixedThreadPool(
+				BaseConfig.threadTwitterSize
+				+BaseConfig.threadNeo4jSize);
 		
-		this._executorService.execute(new StreamingClient(this._msgQueue, this._eventQueue, this._statusQueue));
+		for(int i=0; i<BaseConfig.threadTwitterSize; i++) {
+			this._executorService.execute(new StreamingClient(this._msgQueue, this._eventQueue, this._statusQueue));
+		}
 		
-		this._executorService.execute(new Neo4j(this._statusQueue));
+		for(int i=0; i<BaseConfig.threadNeo4jSize; i++) {
+			this._executorService.execute(new Neo4j(this._statusQueue));
+		}
 	}
 	
 	private void initStats() {

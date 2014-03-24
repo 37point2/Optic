@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="login">
+    <div class="container">
+        <form class="form-horizontal" method="post" id="loginForm">
+            <label>Username</label>
+            <input class="span3" id="username" type="text" name="User" placeholder="Enter your username">
+            <label>Password</label>
+            <input class="span3" id="password" type="password" name="Password">
+            <input class="btn" type="submit" value="Log In">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -2,3 +2,5 @@ ingest/target/
 ingest/config/ingest.json
 ingest/ingest.lo*
 ingest/dependency-reduced-pom.xml
+optic_ui/.idea
+*.pyc

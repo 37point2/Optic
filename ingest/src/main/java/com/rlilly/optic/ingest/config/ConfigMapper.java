@@ -28,6 +28,10 @@ public class ConfigMapper {
 			BaseConfig.dbpath = ingestConfig.neo4j.dbpath;
 			BaseConfig.classpath = ingestConfig.neo4j.classpath;
 			
+			//Threads
+			BaseConfig.threadTwitterSize = ingestConfig.threads.threadTwitterSize;
+			BaseConfig.threadNeo4jSize = ingestConfig.threads.threadNeo4jSize;
+			
 			_logger.info("Config loadded successfully");
 			
 		} catch (JsonParseException e) {

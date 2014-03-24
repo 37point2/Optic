@@ -1,0 +1,67 @@
+.visualization {
+    height: 100%;
+}
+
+.visualization>.container-fluid>.row-fluid>.span2 {
+    background-color: #d5d5d5;
+    padding-left: 20px;
+    height: 100%;
+}
+
+.visualization>.container-fluid>.row-fluid>.span3 {
+    background-color: #d5d5d5;
+    padding-right: 20px;
+    height: 100%;
+}
+
+.visualization>.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 100%;
+}
+
+.visualization>.container-fluid>.row-fluid {
+    height: 100%;
+}
+
+#login {
+    text-align: right;
+    margin-right: -20px;
+}
+
+body {
+    display: block;
+    padding-top: 40px;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+div {
+    display: block;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    text-align: left;
+    background-color: #f5f5f5;
+}
+
+footer>p {
+    vertical-align: text-bottom;
+}
+
+.login {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    height: 130px;
+    width: 350px;
+    margin-left: -175px;
+    margin-top: -65px;
+}
