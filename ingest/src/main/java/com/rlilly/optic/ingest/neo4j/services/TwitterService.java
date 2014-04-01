@@ -10,6 +10,7 @@ import twitter4j.Status;
 import twitter4j.URLEntity;
 import twitter4j.UserMentionEntity;
 
+import com.rlilly.optic.ingest.config.Base;
 import com.rlilly.optic.ingest.neo4j.domain.Tweet;
 import com.rlilly.optic.ingest.neo4j.domain.Url;
 import com.rlilly.optic.ingest.neo4j.domain.Tag;
@@ -37,9 +38,10 @@ public class TwitterService {
 		final String screen_name = status.getUser().getScreenName();
 		final String display_name = status.getUser().getName();
 		User user = userRepository.save(new User(screen_name, display_name));
+		Base.usersProcessed++;
 		final String text = status.getText();
 		final Tweet tweet = new Tweet(status.getId(), user, text);
-		_logger.info("Imported " + tweet);
+		_logger.debug("Imported " + tweet);
 		addMentions(tweet, status.getUserMentionEntities());
 		addTags(tweet, status.getHashtagEntities());
 		addUrls(tweet, status.getURLEntities());
@@ -47,6 +49,7 @@ public class TwitterService {
 		//TODO addPlace
 		addOriginalTweet(tweet, status.getInReplyToStatusId());
 		tweetRepository.save(tweet);
+		Base.tweetsProcessed++;
 	}
 	
 	private void addOriginalTweet(Tweet tweet, Long inReplyToId){
@@ -59,6 +62,7 @@ public class TwitterService {
 	private void addUrls(Tweet tweet, URLEntity[] urlEntities) {
 		for (URLEntity url : urlEntities) {
 			tweet.addUrl(new Url(url.getExpandedURL()));
+			Base.urlsProcessed++;
 		}
 		
 	}
@@ -66,6 +70,7 @@ public class TwitterService {
 	private void addTags(Tweet tweet, HashtagEntity[] hashtagEntities) {
 		for (HashtagEntity hashtag : hashtagEntities) {
 			tweet.addTag(tagRepository.save(new Tag(hashtag.getText())));
+			Base.tagsProcessed++;
 		}
 	}
 
@@ -73,6 +78,7 @@ public class TwitterService {
 			UserMentionEntity[] userMentionEntities) {
 		for (UserMentionEntity mention : userMentionEntities) {
 			tweet.addMention(userRepository.save(new User(mention.getScreenName(), mention.getName())));
+			Base.mentionsProcessed++;
 		}
 		
 	}

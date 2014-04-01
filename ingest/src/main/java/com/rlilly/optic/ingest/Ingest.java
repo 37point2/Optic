@@ -14,6 +14,7 @@ import com.rlilly.optic.ingest.config.BaseConfig;
 import com.rlilly.optic.ingest.config.ConfigMapper;
 import com.rlilly.optic.ingest.neo4j.Neo4j;
 import com.rlilly.optic.ingest.stats.Stats;
+import com.rlilly.optic.ingest.twitterstream.PrintEvents;
 import com.rlilly.optic.ingest.twitterstream.StreamingClient;
 import com.twitter.hbc.core.event.Event;
 
@@ -50,7 +51,8 @@ private static Logger _logger = Logger.getLogger(Ingest.class);
 		
 		this._executorService = Executors.newFixedThreadPool(
 				BaseConfig.threadTwitterSize
-				+BaseConfig.threadNeo4jSize);
+				+BaseConfig.threadNeo4jSize
+				+1);
 		
 		for(int i=0; i<BaseConfig.threadTwitterSize; i++) {
 			this._executorService.execute(new StreamingClient(this._msgQueue, this._eventQueue, this._statusQueue));
@@ -59,6 +61,8 @@ private static Logger _logger = Logger.getLogger(Ingest.class);
 		for(int i=0; i<BaseConfig.threadNeo4jSize; i++) {
 			this._executorService.execute(new Neo4j(this._statusQueue));
 		}
+		
+		this._executorService.execute(new PrintEvents(this._eventQueue));
 	}
 	
 	private void initStats() {

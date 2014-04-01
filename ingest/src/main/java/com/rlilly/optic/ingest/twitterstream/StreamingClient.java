@@ -16,7 +16,7 @@ import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.Constants;
 import com.twitter.hbc.core.Hosts;
 import com.twitter.hbc.core.HttpHosts;
-import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
+import com.twitter.hbc.core.endpoint.UserstreamEndpoint;
 import com.twitter.hbc.core.endpoint.StreamingEndpoint;
 import com.twitter.hbc.core.event.Event;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
@@ -41,8 +41,8 @@ public class StreamingClient implements Runnable {
 	public void run() {
 		_logger.info("Starting StreamingClient");
 		
-		Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
-        StreamingEndpoint endpoint = new StatusesSampleEndpoint();
+		Hosts hosebirdHosts = new HttpHosts(Constants.USERSTREAM_HOST);
+        StreamingEndpoint endpoint = new UserstreamEndpoint();
         
         Authentication hosebirdAuth = new OAuth1(
         		BaseConfig.apiKey,
