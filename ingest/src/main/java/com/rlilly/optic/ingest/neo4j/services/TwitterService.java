@@ -1,6 +1,7 @@
 package com.rlilly.optic.ingest.neo4j.services;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.index.IndexResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,13 +35,13 @@ public class TwitterService {
 	TweetRepository tweetRepository;
 	
 	@Transactional
-	public void importTweet(Status status) {
+	public void importTweet(Status status, String esId) {
 		final String screen_name = status.getUser().getScreenName();
 		final String display_name = status.getUser().getName();
 		User user = userRepository.save(new User(screen_name, display_name));
 		Base.usersProcessed++;
 		final String text = status.getText();
-		final Tweet tweet = new Tweet(status.getId(), user, text);
+		final Tweet tweet = new Tweet(status.getId(), user, text, esId);
 		_logger.debug("Imported " + tweet);
 		addMentions(tweet, status.getUserMentionEntities());
 		addTags(tweet, status.getHashtagEntities());

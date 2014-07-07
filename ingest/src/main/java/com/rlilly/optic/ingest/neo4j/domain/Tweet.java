@@ -17,6 +17,7 @@ public class Tweet {
 	@Indexed(unique=true) Long tweetId;
 	
 	String text;
+	String esId;
 	
 	@Fetch User sender;
 	@Fetch @RelatedTo(type="TAG") Collection<Tag> tags = new HashSet<Tag>();
@@ -28,10 +29,11 @@ public class Tweet {
 		
 	}
 	
-	public Tweet(long tweetId, User sender, String text){
+	public Tweet(long tweetId, User sender, String text, String esId){
 		this.tweetId = tweetId;
 		this.sender = sender;
 		this.text = text;
+		this.esId = esId;
 	}
 	
 	public void addMention(User mention){
@@ -44,6 +46,10 @@ public class Tweet {
 	
 	public Long getId(){
 		return id;
+	}
+	
+	public String getEsId() {
+		return esId;
 	}
 	
 	public Long getTweetId() {
